@@ -47,7 +47,7 @@ const ProductsPage = () => {
                 <a href={edge.node.githubUrl} target= "_blank" rel="noopener noreferrer">
                   Github Source
                 </a>
-                <a href={edge.node.liveUrl}>
+                <a href={edge.node.liveUrl} target= "_blank" rel="noopener noreferrer">
                   Live
                 </a>
             </li>

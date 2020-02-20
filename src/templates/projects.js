@@ -9,6 +9,8 @@ export const query = graphql`
   query ($slug: String!){
     contentfulProjects (slug: {eq: $slug}) {
       name
+      githubUrl
+      liveUrl
       datePublished(formatString: "MMMM Do, YYYY")
       description {
         json
@@ -49,9 +51,15 @@ export default function Projects(props) {
     <Layout>
       <Head title={props.data.contentfulProjects.name} />
       <h1>{ props.data.contentfulProjects.name }</h1>
-      <p>{ props.data.contentfulProjects.datePublished }</p>
+      {/* <p>{ props.data.contentfulProjects.datePublished }</p> */}
+      <a href={props.data.contentfulProjects.githubUrl} target= "_blank" rel="noopener noreferrer">
+        Github Source
+      </a>
+      <a href={props.data.contentfulProjects.liveUrl} target= "_blank" rel="noopener noreferrer">
+        Live
+      </a>
       <img src={props.data.contentfulProjects.projectPhoto.file.url} alt={props.data.contentfulProjects.projectPhoto.fileName}/>
-      <img src={props.data.contentfulAsset.file.url} alt=""/>
+      {/* <img src={props.data.contentfulAsset.file.url} alt=""/> */}
       {documentToReactComponents(props.data.contentfulProjects.description.json)}
     </Layout>
   )
