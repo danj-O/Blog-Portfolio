@@ -13,6 +13,18 @@ export const query = graphql`
       description {
         json
       }
+      projectPhoto {
+        file {
+          fileName
+          url
+          
+        }
+      }
+    }
+    contentfulAsset {
+      file {
+        url
+      }
     }
   }
 `
@@ -22,7 +34,10 @@ export const query = graphql`
 export default function Projects(props) {
   const options = {
     renderNode: {
+      //override specific node types
       "embedded-asset-block": (node)=>{
+        //PROBLEM!!!!!!------------
+        //Where should the query go to find these two in playground??!!
         const alt = node.data.target.fields.title["en-US"]
         const url = node.data.target.fields.file["en-US"].url
         console.log(alt, url)
@@ -32,10 +47,12 @@ export default function Projects(props) {
   }
   return (
     <Layout>
-      <Head title={props.data.contentfulProjects.title} />
-      <h1>{ props.data.contentfulProjects.title }</h1>
+      <Head title={props.data.contentfulProjects.name} />
+      <h1>{ props.data.contentfulProjects.name }</h1>
       <p>{ props.data.contentfulProjects.datePublished }</p>
-      {documentToReactComponents(props.data.contentfulProjects.description.json, options)}
+      <img src={props.data.contentfulProjects.projectPhoto.file.url} alt={props.data.contentfulProjects.projectPhoto.fileName}/>
+      <img src={props.data.contentfulAsset.file.url} alt=""/>
+      {documentToReactComponents(props.data.contentfulProjects.description.json)}
     </Layout>
   )
 }

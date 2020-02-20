@@ -9,7 +9,7 @@
 module.exports = {
   siteMetadata : {
     //this will be used for header and footer text
-    title: 'Daniel Scott Portfolio Site',
+    title: 'Daniel Scott',
     author: 'Daniel Scott',
   },
   plugins : [
