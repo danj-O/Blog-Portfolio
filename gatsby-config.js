@@ -19,7 +19,7 @@ module.exports = {
       //contentful plugin
       resolve : 'gatsby-source-contentful',
       options : {
-        //these are put in the .env.development file
+        //these are put in the .env file
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
       }

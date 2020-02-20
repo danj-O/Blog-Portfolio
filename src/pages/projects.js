@@ -6,15 +6,18 @@ import Head from '../components/Head'
 
 
 
-const BlogPage = () => {
+const ProductsPage = () => {
   const data = useStaticQuery(graphql`
     query {
-      allContentfulBlogPost (sort: {fields: publishedDate,order: DESC}){
+      allContentfulProjects {
         edges {
           node {
-            title
+            name
             slug
-            publishedDate(formatString:"MMMM Do, YYYY")
+            datePublished(formatString:"MMMM Do, YYYY")
+            description {
+              json
+            }
           }
         }
       }
@@ -23,21 +26,21 @@ const BlogPage = () => {
 
   return (
     <Layout>
-      <Head title='Blog'/>
-      <h1> Blog</h1>
-      <p>Check here for cool stuff weekly!</p>
+      <Head title='Projects'/>
+      <h1> Projects</h1>
+      <p>Here's a list of projects I have worked on.</p>
       <ol className={blogStyles.posts}>
         { //maps over the query using allMarkdownRemark to find .md files
-        data.allContentfulBlogPost.edges.map((edge) => {
+        data.allContentfulProjects.edges.map((edge) => {
           return (
             <li key={edge.node.slug} className={blogStyles.post}>
-              <Link to={`/blog/${edge.node.slug}`}>
+              <Link to={`/projects/${edge.node.slug}`}>
                 <h2>
                   {/* make dynamic link to blog post */}
-                    {edge.node.title}
+                    {edge.node.name}
                 </h2>
                 <p>
-                  {edge.node.publishedDate}
+                  {edge.node.datePublished}
                 </p>
               </Link>
             </li>
@@ -48,4 +51,4 @@ const BlogPage = () => {
     </Layout>
   )
 }
-export default BlogPage
+export default ProductsPage
