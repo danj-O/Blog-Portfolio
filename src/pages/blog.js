@@ -9,10 +9,10 @@ import Head from '../components/Head'
 const BlogPage = () => {
   const data = useStaticQuery(graphql`
     query {
-      allContentfulBlogPost (sort: {fields: publishedDate,order: DESC}){
+      allContentfulBlog (sort: {fields: publishedDate,order: DESC}){
         edges {
           node {
-            title
+            name
             slug
             publishedDate(formatString:"MMMM Do, YYYY")
           }
@@ -28,13 +28,13 @@ const BlogPage = () => {
       <p>Check here for cool stuff weekly!</p>
       <ol className={blogStyles.posts}>
         { //maps over the query using allMarkdownRemark to find .md files
-        data.allContentfulBlogPost.edges.map((edge) => {
+        data.allContentfulBlog.edges.map((edge) => {
           return (
             <li key={edge.node.slug} className={blogStyles.post}>
               <Link to={`/blog/${edge.node.slug}`}>
                 <h2>
                   {/* make dynamic link to blog post */}
-                    {edge.node.title}
+                    {edge.node.name}
                 </h2>
                 <p>
                   {edge.node.publishedDate}

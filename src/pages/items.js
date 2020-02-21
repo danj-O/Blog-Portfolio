@@ -1,21 +1,26 @@
-import React from "react"
+import React from 'react'
 import Layout from '../components/Layout'
 import { Link, useStaticQuery, graphql } from 'gatsby'
-import indexStyles from '../styles/index2.module.scss'
+import itemStyles from '../pages/items.module.scss'
 import Head from '../components/Head'
 
-const IndexPage = () =>{
+
+
+const ItemsPage = () => {
   const data = useStaticQuery(graphql`
     query {
-      allContentfulDeals {
+      allContentfulItem {
         edges {
           node {
-            name
+            title
             slug
             shortDescription
             price
             pricePer
-            image {
+            description {
+              json
+            }
+            itemImage {
               file {
                 fileName
                 url
@@ -28,23 +33,20 @@ const IndexPage = () =>{
     }
   `)
 
-
-  return(
-    <div>
-      <Layout>
-        <Head title="home"/>
-        <h1> Welcome to the Kocian Meats online market!</h1>
-        <h2>To get started, check out our fresh deals!</h2>
-
-        <div className={indexStyles.deals}>
+  return (
+    <Layout>
+      <Head title='Product List'/>
+      <h1> Products</h1>
+      <p>In a hurry? Our best selection is now available for preorder/prepay right here!</p>
+      <div className={itemStyles.items}>
         { //maps over the query using allMarkdownRemark to find .md files
-        data.allContentfulDeals.edges.map((edge) => {
+        data.allContentfulItem.edges.map((edge) => {
           return (
-            <div key={edge.node.slug} className={indexStyles.deal}>
-              <Link to={`/deals/${edge.node.slug}`}>
+            <div key={edge.node.slug} className={itemStyles.item}>
+              <Link to={`/items/${edge.node.slug}`}>
                 <h2>
                   {/* make dynamic link to blog post */}
-                    {edge.node.name}
+                    {edge.node.title}
                 </h2>
                 <p>{edge.node.shortDescription}</p>
                 <div>
@@ -52,7 +54,7 @@ const IndexPage = () =>{
                     <p>${edge.node.price} - {edge.node.pricePer}</p>
                   </div>
                   <div>
-                    <img src={edge.node.image.file.url} alt=""/>
+                    <img src={edge.node.itemImage.file.url} alt=""/>
                   </div>
                 </div>
               </Link>
@@ -61,9 +63,7 @@ const IndexPage = () =>{
         })
         }
       </div>
-
-      </Layout>
-    </div>
+    </Layout>
   )
 }
-export default IndexPage
+export default ItemsPage

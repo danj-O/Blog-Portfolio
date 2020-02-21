@@ -9,10 +9,10 @@ import Head from '../components/Head'
 //query the data for the blog specific page
 export const query = graphql`
   query ($slug: String!){
-    contentfulBlogPost (slug: {eq: $slug}) {
-      title
+    contentfulBlog (slug: {eq: $slug}) {
+      name
       publishedDate(formatString: "MMMM Do, YYYY")
-      body {
+      description {
         json
       }
     }
@@ -33,10 +33,10 @@ export default function Blog(props) {
   }
   return (
     <Layout>
-      <Head title={props.data.contentfulBlogPost.title} />
-      <h1>{ props.data.contentfulBlogPost.title }</h1>
-      <p>{ props.data.contentfulBlogPost.publishedDate }</p>
-      {documentToReactComponents(props.data.contentfulBlogPost.body.json, options)}
+      <Head title={props.data.contentfulBlog.name} />
+      <h1>{ props.data.contentfulBlog.name }</h1>
+      <p>{ props.data.contentfulBlog.publishedDate }</p>
+      {documentToReactComponents(props.data.contentfulBlog.description.json, options)}
     </Layout>
   )
 }

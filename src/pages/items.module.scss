@@ -1,0 +1,36 @@
+.items {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+}
+.item {
+  margin: 1em 0;
+  background: #f4f4f4;
+  max-width: 200px;
+
+  a {
+    background: #f4f4f4;
+    color: black;
+    display: block;
+    text-decoration: none;
+    padding: 1rem;
+  }
+  a:hover {
+    background: #e4e4e4;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+  p {
+    color: #777777;
+    font-size: .8rem;
+    font-style: italic ;
+  }
+  img {
+    max-width: 150px;
+  }
+}
